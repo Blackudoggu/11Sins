@@ -47,7 +47,7 @@ charadex.sheet = {
     rarity: ['All', 'Common', 'Uncommon', 'Rare', 'Legendary'],
     species: ['11SIN'],
     itemTypes: ['All', 'Currency', 'Trait', 'Misc', 'MYO Slot', 'Collectible'],
-    traitTypes: ['All', 'Ears', 'Eyes', 'Body', 'Limbs', 'Tails', 'Misc',]
+    traitTypes: ['All', 'HandBirds', 'Neck', 'Mouth', 'Tail', 'Wings', 'Head', 'Misc']
 
   }
 
