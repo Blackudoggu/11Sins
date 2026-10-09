@@ -16,7 +16,7 @@ let charadex = {};
 /* ==================================================================== */
 charadex.site = {
   title: "11Sins",
-  url: "https://11sins.netlify.app/",
+  url: "https://blackudoggu.github.io/11Sins/",
   description: `TBA`
 }
 
