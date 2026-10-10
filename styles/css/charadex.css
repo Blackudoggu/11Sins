@@ -774,3 +774,27 @@ p:last-child {
   background-color: var(--cd-rarity-legendary-bg);
   color: var(--cd-rarity-legendary-txt);
 }
+
+
+/* ============================================================= */
+/* Stamp Guide & Store
+/* ============================================================= */
+
+.stamp-row:not(:last-of-type) {
+  border-bottom: 1px solid var(--cd-border-color);
+}
+
+.store-card-body {
+  min-height: 9rem;
+}
+
+.store-image {
+  max-height: 140px;
+}
+
+.store-currency-icon {
+  height: 1.2em;
+  width: auto;
+  vertical-align: -0.2em;
+  margin-right: .25rem;
+}
