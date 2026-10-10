@@ -109,6 +109,38 @@ charadex.page.items = {
 };
 
 
+/* Store
+/* --------------------------------------------------------------- */
+charadex.page.store = {
+
+  sheetPage: charadex.sheet.pages.items,
+  sitePage: 'items', 
+  dexSelector: 'store',
+  profileProperty: 'item',
+  profileToggle: false,
+
+  sort: {
+    toggle: true,
+    sortProperty: "item",
+    order: "asc",
+    parametersKey: 'type',
+    parameters: charadex.sheet.options.itemTypes
+  },
+
+  search: {
+    toggle: false,
+    filterToggle: false,
+    parameters: []
+  },
+
+  filters: {
+    toggle: false,
+    parameters: {}
+  },
+
+};
+
+
 /* Traits
 /* --------------------------------------------------------------- */
 charadex.page.traits = {
