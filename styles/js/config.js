@@ -46,7 +46,7 @@ charadex.sheet = {
     statuses: ['All', 'Voided', 'For Sale', 'Free to Draw', 'NPC', 'NONE'],
     rarity: ['All', 'Common', 'Uncommon', 'Rare', 'Legendary'],
     species: ['11SIN'],
-    itemTypes: ['All', 'Currency', 'Trait', 'Misc', 'MYO Slot', 'Collectible'],
+    itemTypes: ['All', 'Currency', 'Trait', 'Misc', 'MYO Slot', 'Collectible', 'Event'],
     traitTypes: ['All', 'HandBirds', 'Neck', 'Mouth', 'Tail', 'Wings', 'Head', 'Misc']
 
   }
