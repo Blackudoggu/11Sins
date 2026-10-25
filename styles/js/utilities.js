@@ -126,53 +126,90 @@ charadex.tools = {
 
 
 
-/* ==================================================================== */
-/* URL
-=======================================================================  /
 
-  We're keeping urls CLEAN this time i s2g
-    
-======================================================================= */
+charadex.tools.toImageUrl = (url) => {
+  url = String(url || '').trim();
+  if (!url) return '';
+  if (/google/i.test(url)) {
+    const match = url.match(/.*\/(.*)\//);
+    if (match && match[1]) return `https://img-l.ink/img/${match[1]}.png`;
+  }
+  return url;
+};
+
+
+charadex.tools.buildForms = (entry, keyPattern) => {
+
+  const forms = [];
+
+  const main = entry.image || charadex.tools.toImageUrl(entry.imageurl);
+  if (main) forms.push(main);
+
+  const keys = Object.keys(entry)
+    .filter(key => keyPattern.test(key))
+    .sort((a, b) => (parseInt(a.replace(/\D/g, '')) || 0) - (parseInt(b.replace(/\D/g, '')) || 0));
+
+  for (const key of keys) {
+    const url = charadex.tools.toImageUrl(entry[key]);
+    if (/^https?:\/\//i.test(url)) forms.push(url);
+  }
+
+  if (forms.length < 2) {
+    console.info('[Charadex] No image tiles shown: found', forms.length, 'image(s).', 'Columns matched:', keys.map(key => `${key} = "${entry[key]}"`));
+    return;
+  }
+
+  const container = $('.charadex-list .cd-forms');
+  const mainImage = $('.charadex-list .cd-profile-image-container img.image');
+
+  forms.forEach((src, index) => {
+
+    const label = index === 0 ? 'Default form' : `Form ${index + 1}`;
+
+    const tile = $('<button type="button" class="cd-form-tile"></button>')
+      .attr({ title: label, 'aria-label': label })
+      .toggleClass('active', index === 0)
+      .append($('<img>').attr({ src: src, alt: label, loading: 'lazy' }));
+
+    tile.on('click', () => {
+      mainImage.attr('src', src);
+      container.find('.cd-form-tile').removeClass('active');
+      tile.addClass('active');
+    });
+
+    container.append(tile);
+
+  });
+
+  container.show();
+
+};
+
+
+
 charadex.url = {
 
-  // Returns the entire URL w/ parameters 
-  // https://charadex.com/masterlist.html?param=value
+
   getUrl(url) {
     return new URL(url || window.location.href).href;
   },
 
-  // Returns the base site URL
-  // https://charadex.com
+
   getSiteUrl() {
-    let host = window.location.protocol + window.location.host;
-    if (host.includes('localhost')) {
-      let fileName = window.location.pathname.split("/");
-      fileName.pop();
-      let baseFile = fileName.join("/");
-      host += baseFile;
-    } else if (!host.includes('localhost')) {
-      host = charadex.site.url;
-    }
-    return charadex.url.getUrl(host);
+
+    return new URL('.', window.location.href).href;
   },
 
-  // Returns the page URL
-  // https://charadex.com/masterlist.html
   getPageUrl(page, url) {
     let pageUrl = url ?? charadex.url.getSiteUrl();
     return `${pageUrl.replace(/\/$/, '')}/${page}.html`
   },
 
-  // Returns the parameters in object form
-  // If you want a specific parameter, add 
-  // { key: value }
   getUrlParameters(url) {
     return new URLSearchParams(url || window.location.search)
   },
 
-  // Returns the parameters in object form
-  // If you want a specific parameter, add 
-  // { key: value }
+
   getUrlParametersObject(url, keys = false) {
 
     let params = charadex.url.getUrlParameters(url);
@@ -194,7 +231,7 @@ charadex.url = {
 
   },
 
-  // Adds parameters based on an object
+
   addUrlParameters(url, obj) {
     let params = '';
     for (let k in obj) params += `&${encodeURIComponent(charadex.tools.scrub(k))}=${encodeURIComponent(charadex.tools.createKey(obj[k]))}`;
@@ -366,12 +403,12 @@ charadex.importSheet = async (sheetPage, sheetId = charadex.sheet.id) => {
   // Parse the text
   const sliceJSON = JSON.parse(sheetJSON.substring(47).slice(0, -2));
 
-  // Grab column headers
+
   const col = [];
   if (sliceJSON.table.cols[0].label) {
-    for (let headers of sliceJSON.table.cols) {
-      if (headers.label) col.push(headers.label.toLowerCase().replace(/\s/g, ""));
-    };
+    sliceJSON.table.cols.forEach((headers, position) => {
+      if (headers.label) col.push({ key: headers.label.toLowerCase().replace(/\s/g, ""), position: position });
+    });
   }
 
   // Scrubs columns and puts them in a readable object
@@ -379,11 +416,12 @@ charadex.importSheet = async (sheetPage, sheetId = charadex.sheet.id) => {
   for (let info of sliceJSON.table.rows) {
     const row = {};
     const isBoolean = val => 'boolean' === typeof val;
-    col.forEach((ele, ind) => {
-        row[ele] = info.c[ind] != null ? 
-        info.c[ind].f != null && !isBoolean(info.c[ind].v) ? 
-        info.c[ind].f : info.c[ind].v != null ? 
-        info.c[ind].v : "" : "";
+    col.forEach(({ key, position }) => {
+        const cell = info.c[position];
+        row[key] = cell != null ? 
+        cell.f != null && !isBoolean(cell.v) ? 
+        cell.f : cell.v != null ? 
+        cell.v : "" : "";
     });
     scrubbedData.push(row);
   };
