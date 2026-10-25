@@ -222,15 +222,45 @@
         <div class="cd-prompt-background"></div>
 
         <!-- Body -->
-        <div class="card-body p-md-5 p-4 d-flex flex-column flex-fill">
-          <div class="description mb-auto"></div>
+        <div class="card-body p-md-5 p-4">
+
+          
+          <div class="description mb-4"></div>
+
+         
+          <div class="prompt-section mb-4">
+            <h4 class="text-primary">Story</h4>
+            <div class="card bg-faded p-md-5 p-4">
+              <div class="cd-text-pre cd-story story"></div>
+            </div>
+          </div>
+
+          
+          <div class="row no-gutters m-n2">
+
+            <div class="col-md-6 p-2 prompt-section">
+              <h4 class="text-primary">Requirements</h4>
+              <div class="card bg-faded p-4 h-100">
+                <div class="requirements"></div>
+              </div>
+            </div>
+
+            <div class="col-md-6 p-2 prompt-section">
+              <h4 class="text-primary">Rewards</h4>
+              <div class="card bg-faded p-4 h-100">
+                <div class="rewards"></div>
+              </div>
+            </div>
+
+          </div>
+
           <hr class="my-4 mx-0">
           <div class="row no-gutters text-muted m-n1 px-3 small">
             <div class="col p-1"><b>Start Date:</b> <span class="startdate"></span></div>
             <div class="col p-1"><b>End Date:</b> <span class="enddate"></span></div>
           </div>
         </div>
-        
+
         <!-- Footer -->
         <div class="card-footer text-right">
           <a class="link" href="">Check It Out <i class="fas fa-circle-chevron-right fa-fw ml-2"></i></a>
@@ -239,6 +269,17 @@
       </div>
     </div>
 
+    <div class="col-6 col-lg-4 p-2" id="prompt-reward">
+      <a class="cd-card-link d-block h-100 text-center" href="">
+        <div class="card h-100 p-3">
+          <div class="cd-ingredient-image-container position-relative">
+            <img class="img-fluid cd-ingredient-image" src="">
+            <span class="badge badge-primary cd-ingredient-amount"></span>
+          </div>
+          <b class="mt-2 small cd-ingredient-name"></b>
+        </div>
+      </a>
+    </div>
 
   </div>
 
