@@ -8,6 +8,7 @@ import { charadex } from '../charadex.js';
 /* Load
 ======================================================================= */
 document.addEventListener("DOMContentLoaded", async () => {
-  let dex = await charadex.initialize.page(null, charadex.page.items);
+  const items = charadex.tools.addPriceIcons(await charadex.importSheet(charadex.page.items.sheetPage));
+  let dex = await charadex.initialize.page(items, charadex.page.items);
   charadex.tools.loadPage('.softload', 500);
 });
