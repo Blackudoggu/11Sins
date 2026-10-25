@@ -131,12 +131,31 @@ charadex.tools.toImageUrl = (url) => {
   url = String(url || '').trim();
   if (!url) return '';
   if (/google/i.test(url)) {
-    const match = url.match(/.*\/(.*)\//);
-    if (match && match[1]) return `https://img-l.ink/img/${match[1]}.png`;
+    const match = url.match(/\/d\/([\w-]+)/) || url.match(/[?&]id=([\w-]+)/);
+    if (match) return `https://img-l.ink/img/${match[1]}.png`;
   }
   return url;
 };
 
+
+charadex.tools.addPriceIcons = (items) => {
+
+  const icons = new Map();
+  for (const item of items) {
+    const icon = charadex.tools.toImageUrl(item.currencyimage);
+    item.currencyimage = icon; 
+    if (icon) icons.set(charadex.tools.scrub(item.item), icon);
+  }
+
+  for (const item of items) {
+    const hasPrice = String(item.price ?? '').trim() !== '';
+    const currency = String(item.pricein ?? '').trim();
+    item.priceimage = (hasPrice && currency && icons.get(charadex.tools.scrub(currency))) || '';
+  }
+
+  return items;
+
+};
 
 charadex.tools.buildForms = (entry, keyPattern) => {
 
