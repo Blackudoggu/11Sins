@@ -36,6 +36,7 @@ charadex.sheet = {
     items:         "items",
     traits:        "traits",
     prompts:       "prompts",
+    species:       "species",
     faq:           "faq",
     staff:         "mods",
   },
@@ -229,6 +230,53 @@ charadex.page.prompts = {
     toggle: true,
     filterToggle: false,
     parameters: ['Title']
+  },
+
+  prevNext: {
+    toggle: true,
+  },
+
+};
+
+
+/* Species
+/* (used to describe the different elements)
+/* --------------------------------------------------------------- */
+charadex.page.species = {
+
+  sheetPage: charadex.sheet.pages.species,
+  sitePage: 'species',
+  dexSelector: 'charadex',
+  profileProperty: 'species',
+
+  sort: {
+    toggle: true,
+    sortProperty: "species",
+    order: "asc",
+    parameters: []
+  },
+
+  pagination: {
+    toggle: true,
+    bottomToggle: true,
+    amount: 12,
+  },
+
+  filters: {
+    toggle: false,
+    parameters: {}
+  },
+
+  fauxFolder: {
+    toggle: false,
+    folderProperty: '',
+    parameters: [],
+  },
+
+  search: {
+    toggle: true,
+    filterToggle: false,
+    parameters: ['Species']
   },
 
   prevNext: {
@@ -482,8 +530,6 @@ charadex.page.inventory = {
 
     [charadex.sheet.pages.masterlist]: {
 
-      // This imports the config from the masterlist
-      // So you dont have to repeat yourself
       ...charadex.page.masterlist, 
 
       sheetPage: charadex.sheet.pages.masterlist,
@@ -499,7 +545,6 @@ charadex.page.inventory = {
   },
 
   
-  // This is a special config for their inventory
   inventoryConfig: {
 
     sheetPage: charadex.sheet.pages.items,
