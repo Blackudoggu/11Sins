@@ -12,6 +12,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     let items = await charadex.importSheet(config.sheetPage);
 
+    // Currency icons 
+    charadex.tools.addPriceIcons(items);
+
     
     const isChecked = (value) => value === true || String(value).toLowerCase() === 'true';
 
