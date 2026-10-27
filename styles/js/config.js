@@ -392,6 +392,8 @@ charadex.page.masterlist = {
   dexSelector: 'charadex',
   profileProperty: 'design',
 
+  traitColumns: ['HandBirds', 'Torso', 'Mouth', 'Tail', 'Wings', 'Head', 'Legs', 'Misc'],
+
   sort: {
     toggle: true,
     key: "id",
