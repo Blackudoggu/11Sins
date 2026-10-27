@@ -85,6 +85,9 @@ body {
   --cd-rarity-legendary-bg: #5a473e;
   --cd-rarity-legendary-txt: var(--cd-rarity-common-txt);
 
+  --cd-rarity-legacy-bg: #af71e2;
+  --cd-rarity-legacy-txt: var(--cd-rarity-legacy-txt)
+
 
   /* ============================================================= */
   /*
@@ -903,3 +906,23 @@ p:last-child {
   vertical-align: -0.15em;
   margin-left: .15rem;
 }
+
+
+/* ============================================================= */
+/* Traits
+/* ============================================================= */
+
+.cd-trait-group + .cd-trait-group {
+  margin-top: .75rem;
+}
+
+.cd-trait-line {
+  padding-left: 1.25rem;
+}
+
+/* Rarity */
+.trait-rarity-common    { color: #3f9d5a; }  /* green  */
+.trait-rarity-uncommon  { color: #3b82d6; }  /* blue   */
+.trait-rarity-rare      { color: #d64545; }  /* red    */
+.trait-rarity-legendary { color: #dda152; }  /* orange */
+.trait-rarity-legacy { color: #60149e; } /* purple */
