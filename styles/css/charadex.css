@@ -86,7 +86,7 @@ body {
   --cd-rarity-legendary-txt: var(--cd-rarity-common-txt);
 
   --cd-rarity-legacy-bg: #af71e2;
-  --cd-rarity-legacy-txt: var(--cd-rarity-legacy-txt)
+  --cd-rarity-legacy-txt: var(--cd-rarity-legacy-txt);
 
 
   /* ============================================================= */
