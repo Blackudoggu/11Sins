@@ -6,10 +6,11 @@ import { charadex } from '../charadex.js';
 
 /* ==================================================================== */
 /* Traits
-====================================== */
+======================================================================= */
 
 
 const columnKey = (title) => String(title).toLowerCase().replace(/\s/g, '');
+
 
 const splitTraits = (text) => {
 
@@ -33,7 +34,6 @@ const splitTraits = (text) => {
 
 };
 
-
 const getTraitGroups = (entry) => {
   const columns = charadex.page.masterlist.traitColumns || [];
   return columns.map(label => ({ label: label, traits: splitTraits(entry[columnKey(label)]) }));
@@ -44,7 +44,6 @@ const buildTraits = async (entry) => {
 
   const container = $('.charadex-list .cd-trait-groups');
   if (!container.length) return;
-
 
   const rarities = new Map();
   try {
@@ -88,6 +87,24 @@ const buildTraits = async (entry) => {
 
 
 /* ==================================================================== */
+/* Voided designs
+======================================================================= */
+const greyOutVoided = (list) => {
+
+  const apply = () => {
+    for (const item of list.visibleItems) {
+      const voided = String(item.values().status ?? '').trim().toLowerCase() === 'voided';
+      $(item.elm).toggleClass('cd-voided', voided);
+    }
+  };
+
+  list.on('updated', apply);
+  apply();
+
+};
+
+
+/* ==================================================================== */
 /* Load
 ======================================================================= */
 document.addEventListener("DOMContentLoaded", async () => {
@@ -96,7 +113,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     null,
     charadex.page.masterlist,
 
-    
     (masterlist) => {
       for (const entry of masterlist) {
         entry.traits = getTraitGroups(entry).flatMap(group => group.traits).join(', ');
@@ -104,6 +120,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     },
 
     async (listData) => {
+
+      if (listData.type == 'gallery') {
+        greyOutVoided(listData.list);
+      }
 
       if (listData.type == 'profile') {
 
