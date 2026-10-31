@@ -926,3 +926,32 @@ p:last-child {
 .trait-rarity-rare      { color: #d64545; }  /* red    */
 .trait-rarity-legendary { color: #dda152; }  /* orange */
 .trait-rarity-legacy { color: #60149e; } /* purple */
+
+
+/* ============================================================= */
+/* Voided designs
+/* ============================================================= */
+
+.cd-voided .cd-gallery-card {
+  position: relative;
+}
+
+.cd-voided .cd-gallery-card img {
+  filter: grayscale(100%);
+  opacity: .55;
+}
+
+.cd-voided .cd-gallery-card::after {
+  content: "VOIDED";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-12deg);
+  padding: .2rem .9rem;
+  font-weight: 700;
+  letter-spacing: .15em;
+  color: #fff;
+  background: rgba(120, 0, 0, .8);
+  border-radius: 4px;
+  pointer-events: none;
+}
