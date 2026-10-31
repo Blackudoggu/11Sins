@@ -140,17 +140,44 @@ charadex.tools.toImageUrl = (url) => {
 
 charadex.tools.addPriceIcons = (items) => {
 
+  const scrub = charadex.tools.scrub;
+  const escapeHtml = (text) => String(text).replace(/[&<>"']/g, letter => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[letter]
+  ));
+
   const icons = new Map();
   for (const item of items) {
     const icon = charadex.tools.toImageUrl(item.currencyimage);
-    item.currencyimage = icon; 
-    if (icon) icons.set(charadex.tools.scrub(item.item), icon);
+    item.currencyimage = icon;
+    if (icon) icons.set(scrub(item.item), icon);
   }
 
+  const iconFor = (currency) => {
+    const name = String(currency ?? '').trim();
+    return (name && icons.get(scrub(name))) || '';
+  };
+
   for (const item of items) {
+
+    // Normal price
     const hasPrice = String(item.price ?? '').trim() !== '';
-    const currency = String(item.pricein ?? '').trim();
-    item.priceimage = (hasPrice && currency && icons.get(charadex.tools.scrub(currency))) || '';
+    item.priceimage = hasPrice ? iconFor(item.pricein) : '';
+
+    // Alternative price
+    const altPrice = String(item.altprice ?? '').trim();
+    const hasAltPrice = altPrice !== '' && altPrice !== '-';
+    item.altpriceimage = hasAltPrice ? iconFor(item.altpricein) : '';
+
+
+    const altCurrency = String(item.altpricein ?? '').trim();
+    item.altpriceblock = hasAltPrice
+      ? '<span class="cd-alt-price"><span class="text-muted">or</span> '
+        + (item.altpriceimage ? `<img class="priceimage" src="${escapeHtml(item.altpriceimage)}" alt="${escapeHtml(altCurrency)}">` : '')
+        + escapeHtml(altPrice)
+        + (!item.altpriceimage && altCurrency ? ` ${escapeHtml(altCurrency)}` : '')
+        + '</span>'
+      : '';
+
   }
 
   return items;
@@ -281,8 +308,8 @@ charadex.manageData = {
     if (charadex.tools.checkArray(orderArray)) {
       const orderMap = new Map(orderArray.map((item, index) => [item, index]));
       sorted = sheetArray.sort((a, b) => {
-        const aIndex = orderMap.get(a[orderArrayKey]);
-        const bIndex = orderMap.get(b[orderArrayKey]);
+        const aIndex = orderMap.has(a[orderArrayKey]) ? orderMap.get(a[orderArrayKey]) : orderArray.length;
+        const bIndex = orderMap.has(b[orderArrayKey]) ? orderMap.get(b[orderArrayKey]) : orderArray.length;
         return aIndex - bIndex;
       });
     } else {
@@ -371,15 +398,14 @@ charadex.manageData = {
     let itemArr = await charadex.importSheet(charadex.sheet.pages.items);
   
     let inventoryData = [];
-    for (let property in profileArray) {
-      for (let item of itemArr) {
-        if (property === charadex.tools.scrub(item.item) && profileArray[property] !== '') inventoryData.push({
-          ... item,
-          ... {
-            quantity: profileArray[property]
-          }
-        });
-      }
+    for (let item of itemArr) {
+      const property = charadex.tools.scrub(item.item);
+      if (Object.prototype.hasOwnProperty.call(profileArray, property) && profileArray[property] !== '') inventoryData.push({
+        ... item,
+        ... {
+          quantity: profileArray[property]
+        }
+      });
     }
   
     return inventoryData;
