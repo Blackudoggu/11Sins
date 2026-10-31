@@ -955,3 +955,13 @@ p:last-child {
   border-radius: 4px;
   pointer-events: none;
 }
+
+/* ============================================================= */
+/* Alternative price
+/* ============================================================= */
+
+.cd-alt-price {
+  margin-left: .5rem;
+  white-space: nowrap;
+}
+
