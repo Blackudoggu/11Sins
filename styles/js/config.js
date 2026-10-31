@@ -45,7 +45,7 @@ charadex.sheet = {
 
     designTypes: ['All', 'Official Design', 'Guest Design', 'MYO Design'],
     statuses: ['All', 'Voided', 'For Sale', 'Free to Draw', 'NPC', 'NONE'],
-    rarity: ['All', 'Common', 'Uncommon', 'Rare', 'Legendary'],
+    rarity: ['All', 'Common', 'Uncommon', 'Rare', 'Legendary', 'Legacy'],
     species: ['11SIN'],
     itemTypes: ['All', 'Currency', 'Trait', 'Misc', 'MYO Slot', 'Collectible', 'Event'],
     traitTypes: ['All', 'HandBirds', 'Torso', 'Mouth', 'Tail', 'Wings', 'Head', 'Legs', 'Misc']
