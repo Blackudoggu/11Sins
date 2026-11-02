@@ -54,6 +54,9 @@ let designs = await charadex.initialize.page(null, charadex.page.index.designs, 
   // Overwrite original array in-place
   arr.length = 0;
   arr.push(...recent);
+}, (data) => {
+  // For Sale thing
+  if (data.type == 'gallery') charadex.tools.markStatuses(data.list, { voided: false });
 });
 
 
