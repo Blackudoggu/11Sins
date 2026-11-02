@@ -966,3 +966,33 @@ p:last-child {
   white-space: nowrap;
 }
 
+
+/* ============================================================= */
+/* For sale thing
+/* ============================================================= */
+
+.cd-for-sale .cd-gallery-card {
+  position: relative;
+}
+
+.cd-sale-badge {
+  position: absolute;
+  top: .5rem;
+  left: .5rem;
+  width: 4.5rem;
+  height: auto;
+  pointer-events: none;
+}
+
+.cd-sale-price {
+  position: absolute;
+  bottom: .5rem;
+  left: .5rem;
+  padding: .15rem .8rem;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(0, 0, 0, .7);
+  border-radius: .4rem;
+  white-space: nowrap;
+  pointer-events: none;
+}
