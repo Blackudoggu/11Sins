@@ -394,6 +394,14 @@ charadex.page.masterlist = {
 
   traitColumns: ['HandBirds', 'Torso', 'Mouth', 'Tail', 'Wings', 'Head', 'Legs', 'Misc'],
 
+
+  sale: {
+    status: 'For Sale',
+    image: 'assets/sale.png',   // the sale picture
+    priceColumn: 'Value',       
+    priceSuffix: '€',           
+  },
+
   sort: {
     toggle: true,
     key: "id",
