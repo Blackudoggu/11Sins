@@ -232,6 +232,54 @@ charadex.tools.buildForms = (entry, keyPattern) => {
 };
 
 
+/* ==================================================================== */
+/* Voided and for sale status
+======================================================================= */
+charadex.tools.markStatuses = (list, options = {}) => {
+
+  const { voided = true, sale = true } = options;
+  const saleConfig = sale ? charadex.page.masterlist.sale : null;
+  const saleStatus = saleConfig ? String(saleConfig.status).trim().toLowerCase() : null;
+  const columnKey = (title) => String(title).toLowerCase().replace(/\s/g, '');
+
+  const apply = () => {
+    for (const item of list.visibleItems) {
+
+      const values = item.values();
+      const status = String(values.status ?? '').trim().toLowerCase();
+      const forSale = saleStatus !== null && status === saleStatus;
+
+      if (voided) $(item.elm).toggleClass('cd-voided', status === 'voided');
+
+      if (sale) {
+
+        $(item.elm).toggleClass('cd-for-sale', forSale);
+
+        
+        const card = $(item.elm).find('.cd-gallery-card');
+        card.find('.cd-sale-badge, .cd-sale-price').remove();
+
+        if (forSale) {
+          if (saleConfig.image) card.append($('<img class="cd-sale-badge" alt="For sale">').attr('src', saleConfig.image));
+          const price = String(values[columnKey(saleConfig.priceColumn)] ?? '').trim();
+          if (price && price !== '-' && price !== '0') {
+           
+            const text = /^\d+([.,]\d+)?$/.test(price) ? price + (saleConfig.priceSuffix ?? '') : price;
+            card.append($('<div class="cd-sale-price"></div>').text(text));
+          }
+        }
+
+      }
+
+    }
+  };
+
+  list.on('updated', apply);
+  apply();
+
+};
+
+
 
 charadex.url = {
 
