@@ -86,23 +86,6 @@ const buildTraits = async (entry) => {
 };
 
 
-/* ==================================================================== */
-/* Voided designs
-======================================================================= */
-const greyOutVoided = (list) => {
-
-  const apply = () => {
-    for (const item of list.visibleItems) {
-      const voided = String(item.values().status ?? '').trim().toLowerCase() === 'voided';
-      $(item.elm).toggleClass('cd-voided', voided);
-    }
-  };
-
-  list.on('updated', apply);
-  apply();
-
-};
-
 
 /* ==================================================================== */
 /* Load
@@ -122,7 +105,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     async (listData) => {
 
       if (listData.type == 'gallery') {
-        greyOutVoided(listData.list);
+        charadex.tools.markStatuses(listData.list); 
       }
 
       if (listData.type == 'profile') {
