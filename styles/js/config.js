@@ -48,7 +48,8 @@ charadex.sheet = {
     rarity: ['All', 'Common', 'Uncommon', 'Rare', 'Legendary', 'Legacy'],
     species: ['11SIN'],
     itemTypes: ['All', 'Currency', 'Trait', 'Misc', 'MYO Slot', 'Collectible', 'Event'],
-    traitTypes: ['All', 'HandBirds', 'Torso', 'Mouth', 'Tail', 'Wings', 'Head', 'Legs', 'Misc']
+    traitTypes: ['All', 'HandBirds', 'Torso', 'Mouth', 'Tail', 'Wings', 'Head', 'Legs', 'Misc'],
+    traitSins: ['All', 'Death', 'Lust', 'Pestilence', 'Envy', 'Gluttony', 'Pride', 'War', 'Greed', 'Famine', 'Wrath', 'Sloth']
 
   }
 
@@ -151,6 +152,13 @@ charadex.page.traits = {
   dexSelector: 'charadex',
   profileProperty: 'trait',
 
+  sin: {
+    tokenSuffix: ' Trait Token',
+    tokens: {
+      'Pestilence': 'Conquest Trait Token',
+    },
+  },
+
   sort: {
     toggle: true,
     key: "id",
@@ -169,6 +177,7 @@ charadex.page.traits = {
     parameters: {
       'Type': charadex.sheet.options.traitTypes,
       'Rarity': charadex.sheet.options.rarity,
+      'Sin': charadex.sheet.options.traitSins,
     }
   },
 
