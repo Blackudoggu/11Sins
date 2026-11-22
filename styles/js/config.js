@@ -155,7 +155,7 @@ charadex.page.traits = {
   sin: {
     tokenSuffix: ' Trait Token',
     tokens: {
-      'Pestilence': 'Conquest Trait Token',
+      'Pestilence': 'Pestilence Trait Token',
     },
   },
 
